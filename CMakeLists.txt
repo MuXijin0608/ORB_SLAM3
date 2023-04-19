@@ -28,13 +28,13 @@ else()
    message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-set(ENABLE_BACKWARD true)
-if(ENABLE_BACKWARD)
-    add_definitions(-D USE_BACKWARD)
-    set(LIBDW "dw")
-else()
-    set(LIBDW "")
-endif()
+# set(ENABLE_BACKWARD true)
+# if(ENABLE_BACKWARD)
+#     add_definitions(-D USE_BACKWARD)
+#     set(LIBDW "dw")
+# else()
+#     set(LIBDW "")
+# endif()
 
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
@@ -49,7 +49,7 @@ endif()
 MESSAGE("OPENCV VERSION:")
 MESSAGE(${OpenCV_VERSION})
 
-find_package(Eigen3 3.1.0 REQUIRED)
+find_package(Eigen3 3.3.7 REQUIRED)
 find_package(Pangolin REQUIRED)
 find_package(realsense2)
 
@@ -123,9 +123,9 @@ include/TwoViewReconstruction.h
 include/SerializationUtils.h
 include/Config.h
 include/Settings.h
-        include/backward.hpp
-        src/backward.cpp
-        )
+include/backward.hpp
+src/backward.cpp
+)
 
 add_subdirectory(Thirdparty/g2o)
 
@@ -153,53 +153,53 @@ endif()
 
 # Build examples
 
-# RGB-D examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/RGB-D)
+# # RGB-D examples
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/RGB-D)
 
-add_executable(rgbd_tum
-        Examples/RGB-D/rgbd_tum.cc)
-target_link_libraries(rgbd_tum ${PROJECT_NAME})
+# add_executable(rgbd_tum
+#         Examples/RGB-D/rgbd_tum.cc)
+# target_link_libraries(rgbd_tum ${PROJECT_NAME})
 
-if(realsense2_FOUND)
-    add_executable(rgbd_realsense_D435i
-            Examples/RGB-D/rgbd_realsense_D435i.cc)
-    target_link_libraries(rgbd_realsense_D435i ${PROJECT_NAME})
-endif()
+# if(realsense2_FOUND)
+#     add_executable(rgbd_realsense_D435i
+#             Examples/RGB-D/rgbd_realsense_D435i.cc)
+#     target_link_libraries(rgbd_realsense_D435i ${PROJECT_NAME})
+# endif()
 
 
-# RGB-D inertial examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/RGB-D-Inertial)
+# # RGB-D inertial examples
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/RGB-D-Inertial)
 
-if(realsense2_FOUND)
-    add_executable(rgbd_inertial_realsense_D435i
-            Examples/RGB-D-Inertial/rgbd_inertial_realsense_D435i.cc)
-    target_link_libraries(rgbd_inertial_realsense_D435i ${PROJECT_NAME})
-endif()
+# if(realsense2_FOUND)
+#     add_executable(rgbd_inertial_realsense_D435i
+#             Examples/RGB-D-Inertial/rgbd_inertial_realsense_D435i.cc)
+#     target_link_libraries(rgbd_inertial_realsense_D435i ${PROJECT_NAME})
+# endif()
 
-#Stereo examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Stereo)
+# #Stereo examples
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Stereo)
 
-add_executable(stereo_kitti
-        Examples/Stereo/stereo_kitti.cc)
-target_link_libraries(stereo_kitti ${PROJECT_NAME})
+# add_executable(stereo_kitti
+#         Examples/Stereo/stereo_kitti.cc)
+# target_link_libraries(stereo_kitti ${PROJECT_NAME})
 
-add_executable(stereo_euroc
-        Examples/Stereo/stereo_euroc.cc)
-target_link_libraries(stereo_euroc ${PROJECT_NAME})
+# add_executable(stereo_euroc
+#         Examples/Stereo/stereo_euroc.cc)
+# target_link_libraries(stereo_euroc ${PROJECT_NAME})
 
-add_executable(stereo_tum_vi
-        Examples/Stereo/stereo_tum_vi.cc)
-target_link_libraries(stereo_tum_vi ${PROJECT_NAME})
+# add_executable(stereo_tum_vi
+#         Examples/Stereo/stereo_tum_vi.cc)
+# target_link_libraries(stereo_tum_vi ${PROJECT_NAME})
 
-if(realsense2_FOUND)
-    add_executable(stereo_realsense_t265
-            Examples/Stereo/stereo_realsense_t265.cc)
-    target_link_libraries(stereo_realsense_t265 ${PROJECT_NAME})
+# if(realsense2_FOUND)
+#     add_executable(stereo_realsense_t265
+#             Examples/Stereo/stereo_realsense_t265.cc)
+#     target_link_libraries(stereo_realsense_t265 ${PROJECT_NAME})
 
-    add_executable(stereo_realsense_D435i
-            Examples/Stereo/stereo_realsense_D435i.cc)
-    target_link_libraries(stereo_realsense_D435i ${PROJECT_NAME})
-endif()
+#     add_executable(stereo_realsense_D435i
+#             Examples/Stereo/stereo_realsense_D435i.cc)
+#     target_link_libraries(stereo_realsense_D435i ${PROJECT_NAME})
+# endif()
 
 #Monocular examples
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Monocular)
@@ -251,87 +251,87 @@ if(realsense2_FOUND)
     target_link_libraries(mono_inertial_realsense_D435i ${PROJECT_NAME})
 endif()
 
-#Stereo Inertial examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Stereo-Inertial)
+# #Stereo Inertial examples
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Stereo-Inertial)
 
-add_executable(stereo_inertial_euroc
-        Examples/Stereo-Inertial/stereo_inertial_euroc.cc)
-target_link_libraries(stereo_inertial_euroc ${PROJECT_NAME})
+# add_executable(stereo_inertial_euroc
+#         Examples/Stereo-Inertial/stereo_inertial_euroc.cc)
+# target_link_libraries(stereo_inertial_euroc ${PROJECT_NAME})
 
-add_executable(stereo_inertial_tum_vi
-        Examples/Stereo-Inertial/stereo_inertial_tum_vi.cc)
-target_link_libraries(stereo_inertial_tum_vi ${PROJECT_NAME})
+# add_executable(stereo_inertial_tum_vi
+#         Examples/Stereo-Inertial/stereo_inertial_tum_vi.cc)
+# target_link_libraries(stereo_inertial_tum_vi ${PROJECT_NAME})
 
-if(realsense2_FOUND)
-    add_executable(stereo_inertial_realsense_t265
-            Examples/Stereo-Inertial/stereo_inertial_realsense_t265.cc)
-    target_link_libraries(stereo_inertial_realsense_t265 ${PROJECT_NAME})
+# if(realsense2_FOUND)
+#     add_executable(stereo_inertial_realsense_t265
+#             Examples/Stereo-Inertial/stereo_inertial_realsense_t265.cc)
+#     target_link_libraries(stereo_inertial_realsense_t265 ${PROJECT_NAME})
 
-    add_executable(stereo_inertial_realsense_D435i
-            Examples/Stereo-Inertial/stereo_inertial_realsense_D435i.cc)
-    target_link_libraries(stereo_inertial_realsense_D435i ${PROJECT_NAME})
-endif()
+#     add_executable(stereo_inertial_realsense_D435i
+#             Examples/Stereo-Inertial/stereo_inertial_realsense_D435i.cc)
+#     target_link_libraries(stereo_inertial_realsense_D435i ${PROJECT_NAME})
+# endif()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Calibration)
-if(realsense2_FOUND)
-    add_executable(recorder_realsense_D435i
-            Examples/Calibration/recorder_realsense_D435i.cc)
-    target_link_libraries(recorder_realsense_D435i ${PROJECT_NAME})
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Calibration)
+# if(realsense2_FOUND)
+#     add_executable(recorder_realsense_D435i
+#             Examples/Calibration/recorder_realsense_D435i.cc)
+#     target_link_libraries(recorder_realsense_D435i ${PROJECT_NAME})
 
-    add_executable(recorder_realsense_T265
-            Examples/Calibration/recorder_realsense_T265.cc)
-    target_link_libraries(recorder_realsense_T265 ${PROJECT_NAME})
-endif()
+#     add_executable(recorder_realsense_T265
+#             Examples/Calibration/recorder_realsense_T265.cc)
+#     target_link_libraries(recorder_realsense_T265 ${PROJECT_NAME})
+# endif()
 
-#Old examples
+# #Old examples
 
-# RGB-D examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/RGB-D)
+# # RGB-D examples
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/RGB-D)
 
-add_executable(rgbd_tum_old
-        Examples_old/RGB-D/rgbd_tum.cc)
-target_link_libraries(rgbd_tum_old ${PROJECT_NAME})
+# add_executable(rgbd_tum_old
+#         Examples_old/RGB-D/rgbd_tum.cc)
+# target_link_libraries(rgbd_tum_old ${PROJECT_NAME})
 
-if(realsense2_FOUND)
-    add_executable(rgbd_realsense_D435i_old
-            Examples_old/RGB-D/rgbd_realsense_D435i.cc)
-    target_link_libraries(rgbd_realsense_D435i_old ${PROJECT_NAME})
-endif()
+# if(realsense2_FOUND)
+#     add_executable(rgbd_realsense_D435i_old
+#             Examples_old/RGB-D/rgbd_realsense_D435i.cc)
+#     target_link_libraries(rgbd_realsense_D435i_old ${PROJECT_NAME})
+# endif()
 
 
-# RGB-D inertial examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/RGB-D-Inertial)
+# # RGB-D inertial examples
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/RGB-D-Inertial)
 
-if(realsense2_FOUND)
-    add_executable(rgbd_inertial_realsense_D435i_old
-            Examples_old/RGB-D-Inertial/rgbd_inertial_realsense_D435i.cc)
-    target_link_libraries(rgbd_inertial_realsense_D435i_old ${PROJECT_NAME})
-endif()
+# if(realsense2_FOUND)
+#     add_executable(rgbd_inertial_realsense_D435i_old
+#             Examples_old/RGB-D-Inertial/rgbd_inertial_realsense_D435i.cc)
+#     target_link_libraries(rgbd_inertial_realsense_D435i_old ${PROJECT_NAME})
+# endif()
 
-#Stereo examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/Stereo)
+# #Stereo examples
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/Stereo)
 
-add_executable(stereo_kitti_old
-        Examples_old/Stereo/stereo_kitti.cc)
-target_link_libraries(stereo_kitti_old ${PROJECT_NAME})
+# add_executable(stereo_kitti_old
+#         Examples_old/Stereo/stereo_kitti.cc)
+# target_link_libraries(stereo_kitti_old ${PROJECT_NAME})
 
-add_executable(stereo_euroc_old
-        Examples_old/Stereo/stereo_euroc.cc)
-target_link_libraries(stereo_euroc_old ${PROJECT_NAME})
+# add_executable(stereo_euroc_old
+#         Examples_old/Stereo/stereo_euroc.cc)
+# target_link_libraries(stereo_euroc_old ${PROJECT_NAME})
 
-add_executable(stereo_tum_vi_old
-        Examples_old/Stereo/stereo_tum_vi.cc)
-target_link_libraries(stereo_tum_vi_old ${PROJECT_NAME})
+# add_executable(stereo_tum_vi_old
+#         Examples_old/Stereo/stereo_tum_vi.cc)
+# target_link_libraries(stereo_tum_vi_old ${PROJECT_NAME})
 
-if(realsense2_FOUND)
-    add_executable(stereo_realsense_t265_old
-            Examples_old/Stereo/stereo_realsense_t265.cc)
-    target_link_libraries(stereo_realsense_t265_old ${PROJECT_NAME})
+# if(realsense2_FOUND)
+#     add_executable(stereo_realsense_t265_old
+#             Examples_old/Stereo/stereo_realsense_t265.cc)
+#     target_link_libraries(stereo_realsense_t265_old ${PROJECT_NAME})
 
-    add_executable(stereo_realsense_D435i_old
-            Examples_old/Stereo/stereo_realsense_D435i.cc)
-    target_link_libraries(stereo_realsense_D435i_old ${PROJECT_NAME})
-endif()
+#     add_executable(stereo_realsense_D435i_old
+#             Examples_old/Stereo/stereo_realsense_D435i.cc)
+#     target_link_libraries(stereo_realsense_D435i_old ${PROJECT_NAME})
+# endif()
 
 #Monocular examples
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/Monocular)
@@ -383,23 +383,23 @@ if(realsense2_FOUND)
     target_link_libraries(mono_inertial_realsense_D435i_old ${PROJECT_NAME})
 endif()
 
-#Stereo Inertial examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/Stereo-Inertial)
+# #Stereo Inertial examples
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples_old/Stereo-Inertial)
 
-add_executable(stereo_inertial_euroc_old
-        Examples_old/Stereo-Inertial/stereo_inertial_euroc.cc)
-target_link_libraries(stereo_inertial_euroc_old ${PROJECT_NAME})
+# add_executable(stereo_inertial_euroc_old
+#         Examples_old/Stereo-Inertial/stereo_inertial_euroc.cc)
+# target_link_libraries(stereo_inertial_euroc_old ${PROJECT_NAME})
 
-add_executable(stereo_inertial_tum_vi_old
-        Examples_old/Stereo-Inertial/stereo_inertial_tum_vi.cc)
-target_link_libraries(stereo_inertial_tum_vi_old ${PROJECT_NAME})
+# add_executable(stereo_inertial_tum_vi_old
+#         Examples_old/Stereo-Inertial/stereo_inertial_tum_vi.cc)
+# target_link_libraries(stereo_inertial_tum_vi_old ${PROJECT_NAME})
 
-if(realsense2_FOUND)
-    add_executable(stereo_inertial_realsense_t265_old
-            Examples_old/Stereo-Inertial/stereo_inertial_realsense_t265.cc)
-    target_link_libraries(stereo_inertial_realsense_t265_old ${PROJECT_NAME})
+# if(realsense2_FOUND)
+#     add_executable(stereo_inertial_realsense_t265_old
+#             Examples_old/Stereo-Inertial/stereo_inertial_realsense_t265.cc)
+#     target_link_libraries(stereo_inertial_realsense_t265_old ${PROJECT_NAME})
 
-    add_executable(stereo_inertial_realsense_D435i_old
-            Examples_old/Stereo-Inertial/stereo_inertial_realsense_D435i.cc)
-    target_link_libraries(stereo_inertial_realsense_D435i_old ${PROJECT_NAME})
-endif()
+#     add_executable(stereo_inertial_realsense_D435i_old
+#             Examples_old/Stereo-Inertial/stereo_inertial_realsense_D435i.cc)
+#     target_link_libraries(stereo_inertial_realsense_D435i_old ${PROJECT_NAME})
+# endif()
